@@ -18,9 +18,13 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 
 ## Adaptações nos Dados
 
-> Você modificou ou expandiu os dados mockados? Descreva aqui.
+- Normalização: padronização de categorias de gastos (ex.: lazer, alimentação, transporte).
 
-[Sua descrição aqui]
+- Enriquecimento: inclusão de campos extras como objetivos financeiros (ex.: viagem, compra de imóvel).
+
+- Anonimização: remoção de dados sensíveis para testes e prototipagem.
+
+- Simulação: criação de perfis fictícios para demonstrar diferentes faixas etárias e perfis de risco.
 
 ---
 
@@ -29,20 +33,17 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
 
-[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
+- Carregamento inicial: os arquivos JSON/CSV são carregados no início da sessão.
+
+- Consulta dinâmica: o agente acessa os dados conforme a interação do usuário, sem sobrecarregar o prompt.
+
+- Contextualização no prompt: apenas informações relevantes são inseridas no contexto da resposta (ex.: últimas transações ou perfil de investidor).
+
+- Validação cruzada: antes de sugerir qualquer ação, o agente compara os dados do cliente com regras pré-definidas (ex.: não recomendar investimento sem perfil).
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
 
-[Sua descrição aqui]
-
----
-
-## Exemplo de Contexto Montado
-
-> Mostre um exemplo de como os dados são formatados para o agente.
-
-```
 Dados do Cliente:
 - Nome: João Silva
 - Perfil: Moderado
@@ -51,5 +52,7 @@ Dados do Cliente:
 Últimas transações:
 - 01/11: Supermercado - R$ 450
 - 03/11: Streaming - R$ 55
-...
-```
+- 05/11: Restaurante - R$ 120
+
+Objetivo: Guardar R$ 10.000 em 12 meses para viagem internacional.
+
