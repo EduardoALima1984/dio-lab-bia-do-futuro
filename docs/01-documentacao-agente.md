@@ -91,15 +91,15 @@ flowchart TD
 
 ### Estratégias Adotadas
 
-- [Agente só responde com base nos dados fornecidos]
-- [Respostas incluem fonte da informação]
-- [Quando não sabe, admite e redireciona] [ex: ]
-- [Não faz recomendações de investimento sem perfil do cliente]
-- [Cross-check automático: toda resposta consultiva é validada contra a base de dados do cliente e/ou fontes oficiais antes de ser exibida]
-- [Explicabilidade: o agente sempre mostra o raciocínio ou critério usado para chegar à recomendação.]
-- [Alertas de contexto: se o cliente pedir algo fora do escopo (ex.: informações de mercado sem dados disponíveis), o agente informa a limitação e sugere fontes confiáveis externas.]
-- [Proteção de dados: uso de criptografia e anonimização para garantir que informações pessoais não sejam expostas.]
-- [Feedback contínuo: o cliente pode avaliar a resposta, e o agente ajusta futuras interações para reduzir erros.]
+- Agente só responde com base nos dados fornecidos
+- Respostas incluem fonte da informação
+- Quando não sabe, admite e redireciona
+- Não faz recomendações de investimento sem perfil do cliente
+- Cross-check automático: toda resposta consultiva é validada contra a base de dados do cliente e/ou fontes oficiais antes de ser exibida
+- Explicabilidade: o agente sempre mostra o raciocínio ou critério usado para chegar à recomendação.
+- Alertas de contexto: se o cliente pedir algo fora do escopo (ex.: informações de mercado sem dados disponíveis), o agente informa a limitação e sugere fontes confiáveis externas.
+- Proteção de dados: uso de criptografia e anonimização para garantir que informações pessoais não sejam expostas.
+- Feedback contínuo: o cliente pode avaliar a resposta, e o agente ajusta futuras interações para reduzir erros.
 
 ### Limitações Declaradas
 > O que o agente NÃO faz?
