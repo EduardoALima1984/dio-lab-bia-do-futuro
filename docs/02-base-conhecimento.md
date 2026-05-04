@@ -37,9 +37,62 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 
 - Validação cruzada: antes de sugerir qualquer ação, o agente compara os dados do cliente com regras pré-definidas (ex.: não recomendar investimento sem perfil).
 
+import pandas as pd
+import json
+
+# --- Carregamento inicial ---
+# CSVs e JSONs são carregados no início da sessão
+historico = pd.read_csv("data/historico_atendimento.csv")
+transacoes = pd.read_csv("data/transacoes.csv")
+
+with open("data/perfil_investidor.json", "r", encoding="utf-8") as f:
+    perfil = json.load(f)
+
+with open("data/produtos_financeiros.json", "r", encoding="utf-8") as f:
+    produtos = json.load(f)
+
+# --- Consulta dinâmica ---
+# Exemplo: buscar últimas transações do cliente
+ultimas_transacoes = transacoes.tail(5)
+
+# --- Contextualização no prompt ---
+# Apenas informações relevantes são inseridas no contexto
+contexto = {
+    "nome": perfil["nome"],
+    "perfil_investidor": perfil["perfil_investidor"],
+    "objetivo_principal": perfil["objetivo_principal"],
+    "saldo_disponivel": perfil["patrimonio_total"],
+    "ultimas_transacoes": ultimas_transacoes.to_dict(orient="records")
+}
+
+# --- Validação cruzada ---
+# Exemplo: não recomendar produtos fora do perfil
+def recomendar_produtos(perfil, produtos):
+    recomendados = []
+    for p in produtos:
+        if perfil["perfil_investidor"] == "moderado" and p["risco"] in ["baixo", "medio"]:
+            recomendados.append(p)
+    return recomendados
+
+produtos_recomendados = recomendar_produtos(perfil, produtos)
+
+# --- Exemplo de saída ---
+print("Contexto montado para o agente:")
+print(json.dumps(contexto, indent=2, ensure_ascii=False))
+
+print("\nProdutos recomendados para o perfil moderado:")
+for p in produtos_recomendados:
+    print(f"- {p['nome']} ({p['categoria']}, risco {p['risco']})")
+
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
+- Os dados não são todos carregados no system prompt.
+- O agente acessa a base de conhecimento dinamicamente, conforme a interação.
+- Apenas informações relevantes e recentes são inseridas no prompt (ex.: últimas transações, perfil do investidor, metas).
+- Isso garante que o modelo não fique sobrecarregado e que as respostas sejam contextuais e confiáveis.
+- Antes de sugerir qualquer ação, há uma validação cruzada com regras pré-definidas (ex.: não recomendar investimento sem perfil).
 
+Exemplo de atendimento:
 Dados do Cliente:
 - Nome: João Silva
 - Perfil: Moderado
